@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Snake Game</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome for Settings Icon -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =========================
+         TOP BAR
+    ========================== -->
+
+    <div class="top-bar">
+
+        <h2>🐍 Snake Game</h2>
+
+        <button id="settingsBtn" class="settings-btn">
+
+            <i class="fa-solid fa-gear"></i>
+
+        </button>
+
+    </div>
+
+    <!-- =========================
+         SCORE
+    ========================== -->
+
+    <div class="score-board">
+
+        <div>
+
+            Score :
+            <span id="score">0</span>
+
+        </div>
+
+        <div>
+
+            High Score :
+            <span id="highScore">0</span>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         GAME
+    ========================== -->
+
+    <canvas
+        id="gameCanvas"
+        width="500"
+        height="500">
+    </canvas>
+
+    <button id="restartBtn">
+
+        🔄 Restart Game
+
+    </button>
+
+</div>
+
+<!-- =========================
+     MOBILE CONTROLS
+========================== -->
+
+<div class="controls">
+
+    <button id="up">▲</button>
+
+    <div class="horizontal">
+
+        <button id="left">◀</button>
+
+        <button id="down">▼</button>
+
+        <button id="right">▶</button>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     SETTINGS PANEL
+========================== -->
+
+<div id="settingsPanel" class="settings-panel">
+
+    <div class="settings-box">
+
+        <h2>⚙️ Settings</h2>
+
+        <!-- SPEED -->
+
+        <h3>Snake Speed</h3>
+
+        <div id="speedBlocks" class="speed-blocks">
+
+            <div class="speed-block" data-speed="1"></div>
+            <div class="speed-block" data-speed="2"></div>
+            <div class="speed-block" data-speed="3"></div>
+            <div class="speed-block" data-speed="4"></div>
+            <div class="speed-block" data-speed="5"></div>
+            <div class="speed-block" data-speed="6"></div>
+            <div class="speed-block" data-speed="7"></div>
+            <div class="speed-block" data-speed="8"></div>
+            <div class="speed-block" data-speed="9"></div>
+            <div class="speed-block" data-speed="10"></div>
+
+        </div>
+
+        <p id="speedText">
+
+            Medium
+
+        </p>
+
+        <hr>
+
+        <!-- SOUND -->
+
+        <div class="setting-row">
+
+            <span>🔊 Sound</span>
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="soundToggle"
+                    checked>
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+        <hr>
+
+        <button id="closeSettings">
+
+            Close
+
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
