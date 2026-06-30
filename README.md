@@ -4,56 +4,72 @@ A modern and responsive Snake Game built using **HTML**, **CSS**, and **JavaScri
 
 ## 🌐 Live Demo
 
-👉 https://saurav56295.github.io/snake-game/
+🔗 **Play Now:**  
+https://saurav56295.github.io/snake-game/
 
 ---
 
-## ✨ Features
+# 📸 Screenshots
+
+## 🏠 Home Screen
+
+![Home](assets/Home.png)
+
+---
+
+## 🎮 Gameplay
+
+![Gameplay](assets/Gameplay.png)
+
+---
+
+## ⚙️ Settings Panel
+
+![Settings](assets/Settings.png)
+
+---
+
+## 📱 Mobile View
+
+![Mobile](assets/Mobileview.png)
+
+---
+
+# ✨ Features
 
 - 🐍 Classic Snake Gameplay
-- 🌍 Wrap Around Walls
+- 🌍 Wrap Around Walls (No Wall Collision)
 - 🍎 Red Food (+1 Score)
 - 🔵 Blue Bonus Food (+5 Score)
 - ⏱️ Bonus Food disappears after 5 seconds
-- ⚙️ Settings Panel
-- 🚀 Adjustable Snake Speed
+- ⚙️ Adjustable Snake Speed
+- 🟩 Speed Indicator Blocks
 - 🔊 Sound Toggle
-- 📱 Mobile Controls
+- 📱 Mobile Touch Controls
 - ⌨️ Keyboard Controls
+- ⏸️ Pause / Resume
 - 🏆 High Score Saved using Local Storage
-- 📱 Responsive Design
+- 📱 Fully Responsive Design
 
 ---
 
-## 📸 Screenshots
-
-### Home
-
-![Home](assets/screenshots/home.png)
-
-### Gameplay
-
-![Gameplay](assets/screenshots/gameplay.png)
-
-### Settings
-
-![Settings](assets/screenshots/settings.png)
-
----
-
-## 🎮 Controls
+# 🎮 Controls
 
 | Key | Action |
 |------|--------|
-| ⬆️ | Move Up |
-| ⬇️ | Move Down |
-| ⬅️ | Move Left |
-| ➡️ | Move Right |
+| ⬆️ Arrow | Move Up |
+| ⬇️ Arrow | Move Down |
+| ⬅️ Arrow | Move Left |
+| ➡️ Arrow | Move Right |
 | Space | Pause / Resume |
+
+**Mobile Users**
+
+Use the on-screen arrow buttons to control the snake.
 
 ---
 
-## 🛠️ Built With
+# 🛠️ Built With
 
 - HTML5
 - CSS3
@@ -63,39 +79,47 @@ A modern and responsive Snake Game built using **HTML**, **CSS**, and **JavaScri
 
 ---
 
-## 📂 Folder Structure
+# 📂 Project Structure
 
 ```text
 snake-game/
-│── assets/
-│── index.html
-│── style.css
-│── script.js
-│── README.md
+│
+├── assets/
+│   ├── Home.png
+│   ├── Gameplay.png
+│   ├── Settings.png
+│   └── Mobileview.png
+│
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── LICENSE
 ```
 
 ---
 
-## 🚀 Future Improvements
+# 🚀 Future Improvements
 
 - 🎵 Background Music
-- 🏅 Achievements
 - 🌙 Dark Mode
-- 🌎 Online Leaderboard
-- 🎮 Multiple Difficulty Levels
+- 🏆 Online Leaderboard
+- 🏅 Achievements
+- 🎯 Difficulty Levels
+- 👥 Multiplayer Mode
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Saurav Ram**
 
-GitHub:
-https://github.com/Saurav56295
+- GitHub: https://github.com/Saurav56295
 
 ---
 
-## ⭐ Support
+# ⭐ Show Your Support
 
-If you like this project, consider giving it a ⭐ on GitHub.
-Saurav Ram
+If you enjoyed this project, please consider giving it a ⭐ on GitHub.
+
+It helps others discover the project and motivates further improvements.
