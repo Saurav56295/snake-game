@@ -5,168 +5,154 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Snake Game</title>
 
     <link rel="stylesheet" href="style.css">
 
-    <!-- Font Awesome for Settings Icon -->
+    <!-- Font Awesome -->
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- =========================
-         TOP BAR
-    ========================== -->
+        <!-- =========================
+             TOP BAR
+        ========================== -->
 
-    <div class="top-bar">
+        <div class="top-bar">
 
-        <h2>🐍 Snake Game</h2>
+            <h2>🐍 Snake Game</h2>
 
-        <button id="settingsBtn" class="settings-btn">
+            <button id="settingsBtn" class="settings-btn">
 
-            <i class="fa-solid fa-gear"></i>
+                <i class="fa-solid fa-gear"></i>
 
-        </button>
+            </button>
+
+        </div>
+
+        <!-- =========================
+             SCORE BOARD
+        ========================== -->
+
+        <div class="score-board">
+
+            <div>
+
+                Score :
+                <span id="score">0</span>
+
+            </div>
+
+            <div>
+
+                High Score :
+                <span id="highScore">0</span>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             GAME CANVAS
+        ========================== -->
+
+        <canvas
+            id="gameCanvas"
+            width="500"
+            height="500">
+        </canvas>
 
     </div>
 
     <!-- =========================
-         SCORE
+         MOBILE CONTROLS
     ========================== -->
 
-    <div class="score-board">
+    <div class="controls">
 
-        <div>
+        <button id="up">▲</button>
 
-            Score :
-            <span id="score">0</span>
+        <div class="horizontal">
 
-        </div>
+            <button id="left">◀</button>
 
-        <div>
+            <button id="down">▼</button>
 
-            High Score :
-            <span id="highScore">0</span>
+            <button id="right">▶</button>
 
         </div>
 
     </div>
 
     <!-- =========================
-         GAME
+         SETTINGS PANEL
     ========================== -->
 
-    <canvas
-        id="gameCanvas"
-        width="500"
-        height="500">
-    </canvas>
+    <div id="settingsPanel" class="settings-panel">
 
-    <button id="restartBtn">
+        <div class="settings-box">
 
-        🔄 Restart Game
+            <h2>⚙️ Settings</h2>
 
-    </button>
+            <h3>Snake Speed</h3>
 
-</div>
+            <div id="speedBlocks" class="speed-blocks">
 
-<!-- =========================
-     MOBILE CONTROLS
-========================== -->
+                <div class="speed-block" data-speed="1"></div>
+                <div class="speed-block" data-speed="2"></div>
+                <div class="speed-block" data-speed="3"></div>
+                <div class="speed-block" data-speed="4"></div>
+                <div class="speed-block" data-speed="5"></div>
+                <div class="speed-block" data-speed="6"></div>
+                <div class="speed-block" data-speed="7"></div>
+                <div class="speed-block" data-speed="8"></div>
+                <div class="speed-block" data-speed="9"></div>
+                <div class="speed-block" data-speed="10"></div>
 
-<div class="controls">
+            </div>
 
-    <button id="up">▲</button>
+            <p id="speedText">Medium</p>
 
-    <div class="horizontal">
+            <hr>
 
-        <button id="left">◀</button>
+            <div class="setting-row">
 
-        <button id="down">▼</button>
+                <span>🔊 Sound</span>
 
-        <button id="right">▶</button>
+                <label class="switch">
 
-    </div>
+                    <input
+                        type="checkbox"
+                        id="soundToggle"
+                        checked>
 
-</div>
+                    <span class="slider"></span>
 
-<!-- =========================
-     SETTINGS PANEL
-========================== -->
+                </label>
 
-<div id="settingsPanel" class="settings-panel">
+            </div>
 
-    <div class="settings-box">
+            <hr>
 
-        <h2>⚙️ Settings</h2>
+            <button id="closeSettings">
 
-        <!-- SPEED -->
+                Close
 
-        <h3>Snake Speed</h3>
-
-        <div id="speedBlocks" class="speed-blocks">
-
-            <div class="speed-block" data-speed="1"></div>
-            <div class="speed-block" data-speed="2"></div>
-            <div class="speed-block" data-speed="3"></div>
-            <div class="speed-block" data-speed="4"></div>
-            <div class="speed-block" data-speed="5"></div>
-            <div class="speed-block" data-speed="6"></div>
-            <div class="speed-block" data-speed="7"></div>
-            <div class="speed-block" data-speed="8"></div>
-            <div class="speed-block" data-speed="9"></div>
-            <div class="speed-block" data-speed="10"></div>
+            </button>
 
         </div>
 
-        <p id="speedText">
-
-            Medium
-
-        </p>
-
-        <hr>
-
-        <!-- SOUND -->
-
-        <div class="setting-row">
-
-            <span>🔊 Sound</span>
-
-            <label class="switch">
-
-                <input
-                    type="checkbox"
-                    id="soundToggle"
-                    checked>
-
-                <span class="slider"></span>
-
-            </label>
-
-        </div>
-
-        <hr>
-
-        <button id="closeSettings">
-
-            Close
-
-        </button>
-
     </div>
 
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
+
 </html>

@@ -1,5 +1,11 @@
 # 🐍 Snake Game
 
+A modern Snake Game built using HTML, CSS, and JavaScript.
+
+## 🌐 Live Demo
+
+👉 https://saurav56295.github.io/snake-game/
+
 A modern Snake Game developed using HTML5, CSS3 and JavaScript.
 
 ## ✨ Features

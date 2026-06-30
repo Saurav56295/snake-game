@@ -7,10 +7,9 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// UI
+// Score
 const scoreElement = document.getElementById("score");
 const highScoreElement = document.getElementById("highScore");
-const restartBtn = document.getElementById("restartBtn");
 
 // Settings
 const settingsBtn = document.getElementById("settingsBtn");
@@ -21,7 +20,7 @@ const soundToggle = document.getElementById("soundToggle");
 const speedBlocks = document.querySelectorAll(".speed-block");
 const speedText = document.getElementById("speedText");
 
-// Mobile Buttons
+// Mobile Controls
 const upBtn = document.getElementById("up");
 const downBtn = document.getElementById("down");
 const leftBtn = document.getElementById("left");
@@ -33,8 +32,8 @@ const rightBtn = document.getElementById("right");
 
 const box = 20;
 
-const rows = canvas.width / box;
-const cols = canvas.height / box;
+const rows = canvas.height / box;
+const cols = canvas.width / box;
 
 // ==========================================
 // GAME VARIABLES
@@ -51,9 +50,8 @@ let direction = "RIGHT";
 
 let score = 0;
 
-let highScore = Number(
-    localStorage.getItem("snakeHighScore")
-) || 0;
+let highScore =
+    Number(localStorage.getItem("snakeHighScore")) || 0;
 
 highScoreElement.textContent = highScore;
 
@@ -97,51 +95,47 @@ let speedLevel =
 
 const speedMap = {
 
-    1:220,
-    2:200,
-    3:180,
-    4:160,
-    5:140,
-    6:120,
-    7:100,
-    8:90,
-    9:80,
-    10:70
+    1: 220,
+    2: 200,
+    3: 180,
+    4: 160,
+    5: 140,
+    6: 120,
+    7: 100,
+    8: 90,
+    9: 80,
+    10: 70
 
 };
 
 const speedNames = {
 
-    1:"Very Easy",
-    2:"Easy",
-    3:"Easy+",
-    4:"Normal",
-    5:"Medium",
-    6:"Fast",
-    7:"Hard",
-    8:"Expert",
-    9:"Insane",
-    10:"Impossible"
+    1: "Very Easy",
+    2: "Easy",
+    3: "Easy+",
+    4: "Normal",
+    5: "Medium",
+    6: "Fast",
+    7: "Hard",
+    8: "Expert",
+    9: "Insane",
+    10: "Impossible"
 
 };
 
-speedText.textContent = speedNames[speedLevel];
-
 // ==========================================
-// UPDATE SPEED BLOCKS
+// Update Speed Blocks
 // ==========================================
 
-function updateSpeedBlocks(){
+function updateSpeedBlocks() {
 
-    speedBlocks.forEach((block,index)=>{
+    speedBlocks.forEach((block, index) => {
 
-        if(index < speedLevel){
+        if (index < speedLevel) {
 
             block.classList.add("active");
 
-        }
-
-        else{
+        } else {
 
             block.classList.remove("active");
 
@@ -149,10 +143,9 @@ function updateSpeedBlocks(){
 
     });
 
+    speedText.textContent = speedNames[speedLevel];
+
 }
-
-updateSpeedBlocks();
-
 
 // ==========================================
 // PART 2
@@ -167,7 +160,7 @@ function generateFood() {
 
     while (true) {
 
-        let newFood = {
+        const newFood = {
 
             x: Math.floor(Math.random() * cols) * box,
 
@@ -177,12 +170,10 @@ function generateFood() {
 
         let collision = false;
 
-        for (let part of snake) {
+        // Check snake collision
+        for (const part of snake) {
 
-            if (
-                part.x === newFood.x &&
-                part.y === newFood.y
-            ) {
+            if (part.x === newFood.x && part.y === newFood.y) {
 
                 collision = true;
                 break;
@@ -191,15 +182,29 @@ function generateFood() {
 
         }
 
-        if (!collision)
+        // Check bonus food collision
+        if (
+            bonusFoodVisible &&
+            bonusFood &&
+            bonusFood.x === newFood.x &&
+            bonusFood.y === newFood.y
+        ) {
+
+            collision = true;
+
+        }
+
+        if (!collision) {
+
             return newFood;
+
+        }
 
     }
 
 }
 
 // First Food
-
 food = generateFood();
 
 // ------------------------------------------
@@ -258,10 +263,10 @@ function drawFood() {
 
 function drawBonusFood() {
 
-    if (!bonusFoodVisible)
+    if (!bonusFoodVisible || !bonusFood)
         return;
 
-    // Glow
+    ctx.save();
 
     ctx.shadowColor = "#00BFFF";
 
@@ -287,7 +292,7 @@ function drawBonusFood() {
 
     ctx.fill();
 
-    ctx.shadowBlur = 0;
+    ctx.restore();
 
 }
 
@@ -299,17 +304,15 @@ function drawSnake() {
 
     snake.forEach((segment, index) => {
 
+        // Head
         if (index === 0) {
-
-            // Snake Head
 
             ctx.fillStyle = "#00FF66";
 
         }
 
+        // Body
         else {
-
-            // Body
 
             ctx.fillStyle = "#00CC55";
 
@@ -326,8 +329,6 @@ function drawSnake() {
             box
 
         );
-
-        // Border
 
         ctx.strokeStyle = "#111";
 
@@ -348,7 +349,7 @@ function drawSnake() {
 }
 
 // ==========================================
-// Draw Whole Game
+// Draw Scene
 // ==========================================
 
 function drawScene() {
@@ -384,10 +385,10 @@ function moveSnake() {
     let headY = snake[0].y;
 
     // -------------------------
-    // Move
+    // Move Snake
     // -------------------------
 
-    switch(direction){
+    switch (direction) {
 
         case "UP":
             headY -= box;
@@ -411,22 +412,21 @@ function moveSnake() {
     // Wrap Around Walls
     // -------------------------
 
-    if(headX >= canvas.width)
+    if (headX >= canvas.width)
         headX = 0;
 
-    if(headX < 0)
+    if (headX < 0)
         headX = canvas.width - box;
 
-    if(headY >= canvas.height)
+    if (headY >= canvas.height)
         headY = 0;
 
-    if(headY < 0)
+    if (headY < 0)
         headY = canvas.height - box;
 
     const newHead = {
 
         x: headX,
-
         y: headY
 
     };
@@ -435,39 +435,36 @@ function moveSnake() {
     // Self Collision
     // -------------------------
 
-    for(let i=0;i<snake.length;i++){
+    for (let i = 1; i < snake.length; i++) {
 
-        if(
+        if (
 
             snake[i].x === newHead.x &&
-
             snake[i].y === newHead.y
 
-        ){
+        ) {
 
             gameOver();
-
             return;
 
         }
 
     }
 
-    // Add Head
+    // Add New Head
 
     snake.unshift(newHead);
 
     // -------------------------
-    // RED FOOD
+    // Red Food
     // -------------------------
 
-    if(
+    if (
 
         newHead.x === food.x &&
-
         newHead.y === food.y
 
-    ){
+    ) {
 
         score++;
 
@@ -477,15 +474,14 @@ function moveSnake() {
 
         food = generateFood();
 
-        // Every 5 red foods
+        // Every 5 foods create bonus
 
-        if(
+        if (
 
             redFoodCount % 5 === 0 &&
-
             !bonusFoodVisible
 
-        ){
+        ) {
 
             generateBonusFood();
 
@@ -494,18 +490,17 @@ function moveSnake() {
     }
 
     // -------------------------
-    // BONUS FOOD
+    // Bonus Food
     // -------------------------
 
-    else if(
+    else if (
 
         bonusFoodVisible &&
-
+        bonusFood &&
         newHead.x === bonusFood.x &&
-
         newHead.y === bonusFood.y
 
-    ){
+    ) {
 
         score += 5;
 
@@ -520,10 +515,10 @@ function moveSnake() {
     }
 
     // -------------------------
-    // Nothing Eaten
+    // Remove Tail
     // -------------------------
 
-    else{
+    else {
 
         snake.pop();
 
@@ -533,7 +528,7 @@ function moveSnake() {
     // High Score
     // -------------------------
 
-    if(score > highScore){
+    if (score > highScore) {
 
         highScore = score;
 
@@ -552,10 +547,10 @@ function moveSnake() {
 }
 
 // ==========================================
-// Draw Entire Game
+// Draw Game
 // ==========================================
 
-function drawGame(){
+function drawGame() {
 
     moveSnake();
 
@@ -563,127 +558,11 @@ function drawGame(){
 
 }
 
-
 // ==========================================
-// PART 4
-// Controls & Restart
-// ==========================================
-
-// ------------------------------------------
-// Keyboard Controls
-// ------------------------------------------
-
-document.addEventListener("keydown", function(e){
-
-    switch(e.key){
-
-        case "ArrowUp":
-
-            if(direction !== "DOWN")
-                direction = "UP";
-
-            break;
-
-        case "ArrowDown":
-
-            if(direction !== "UP")
-                direction = "DOWN";
-
-            break;
-
-        case "ArrowLeft":
-
-            if(direction !== "RIGHT")
-                direction = "LEFT";
-
-            break;
-
-        case "ArrowRight":
-
-            if(direction !== "LEFT")
-                direction = "RIGHT";
-
-            break;
-
-        case " ":
-
-            e.preventDefault();
-
-            togglePause();
-
-            break;
-
-    }
-
-});
-
-// ------------------------------------------
-// Mobile Buttons
-// ------------------------------------------
-
-upBtn.onclick = ()=>{
-
-    if(direction !== "DOWN")
-        direction = "UP";
-
-};
-
-downBtn.onclick = ()=>{
-
-    if(direction !== "UP")
-        direction = "DOWN";
-
-};
-
-leftBtn.onclick = ()=>{
-
-    if(direction !== "RIGHT")
-        direction = "LEFT";
-
-};
-
-rightBtn.onclick = ()=>{
-
-    if(direction !== "LEFT")
-        direction = "RIGHT";
-
-};
-
-// ------------------------------------------
-// Pause
-// ------------------------------------------
-
-function togglePause(){
-
-    if(paused){
-
-        gameLoop = setInterval(
-
-            drawGame,
-
-            speedMap[speedLevel]
-
-        );
-
-        paused = false;
-
-    }
-
-    else{
-
-        clearInterval(gameLoop);
-
-        paused = true;
-
-    }
-
-}
-
-// ------------------------------------------
 // Restart Game
-// ------------------------------------------
+// ==========================================
 
-function restartGame(){
+function restartGame() {
 
     clearInterval(gameLoop);
 
@@ -691,9 +570,8 @@ function restartGame(){
 
         {
 
-            x:10 * box,
-
-            y:10 * box
+            x: 10 * box,
+            y: 10 * box
 
         }
 
@@ -707,13 +585,13 @@ function restartGame(){
 
     scoreElement.textContent = score;
 
+    food = generateFood();
+
     bonusFood = null;
 
     bonusFoodVisible = false;
 
     clearTimeout(bonusTimer);
-
-    food = generateFood();
 
     paused = false;
 
@@ -727,39 +605,198 @@ function restartGame(){
 
 }
 
-// Restart Button
-
-restartBtn.addEventListener(
-
-    "click",
-
-    restartGame
-
-);
-
-// ------------------------------------------
+// ==========================================
 // Game Over
-// ------------------------------------------
+// ==========================================
 
-function gameOver(){
+function gameOver() {
 
     clearInterval(gameLoop);
 
     alert(
 
-        "🐍 GAME OVER\n\n" +
+        "💀 GAME OVER!\n\n" +
 
         "Score : " + score +
 
-        "\nHigh Score : " + highScore
+        "\nHigh Score : " + highScore +
+
+        "\n\nClick OK to Play Again."
 
     );
 
+    // Restart automatically
+    restartGame();
+
 }
+
+
+// ==========================================
+// PART 4
+// Controls & Pause
+// ==========================================
+
+// ------------------------------------------
+// Keyboard Controls
+// ------------------------------------------
+
+document.addEventListener("keydown", function (e) {
+
+    switch (e.key) {
+
+        case "ArrowUp":
+
+            if (direction !== "DOWN") {
+
+                direction = "UP";
+
+            }
+
+            break;
+
+        case "ArrowDown":
+
+            if (direction !== "UP") {
+
+                direction = "DOWN";
+
+            }
+
+            break;
+
+        case "ArrowLeft":
+
+            if (direction !== "RIGHT") {
+
+                direction = "LEFT";
+
+            }
+
+            break;
+
+        case "ArrowRight":
+
+            if (direction !== "LEFT") {
+
+                direction = "RIGHT";
+
+            }
+
+            break;
+
+        // Pause / Resume
+        case " ":
+
+            e.preventDefault();
+
+            togglePause();
+
+            break;
+
+    }
+
+});
+
+// ------------------------------------------
+// Mobile Controls
+// ------------------------------------------
+
+upBtn.addEventListener("click", () => {
+
+    if (direction !== "DOWN") {
+
+        direction = "UP";
+
+    }
+
+});
+
+downBtn.addEventListener("click", () => {
+
+    if (direction !== "UP") {
+
+        direction = "DOWN";
+
+    }
+
+});
+
+leftBtn.addEventListener("click", () => {
+
+    if (direction !== "RIGHT") {
+
+        direction = "LEFT";
+
+    }
+
+});
+
+rightBtn.addEventListener("click", () => {
+
+    if (direction !== "LEFT") {
+
+        direction = "RIGHT";
+
+    }
+
+});
+
+// ------------------------------------------
+// Pause / Resume
+// ------------------------------------------
+
+function togglePause() {
+
+    if (paused) {
+
+        gameLoop = setInterval(
+
+            drawGame,
+
+            speedMap[speedLevel]
+
+        );
+
+        paused = false;
+
+    }
+
+    else {
+
+        clearInterval(gameLoop);
+
+        paused = true;
+
+    }
+
+}
+
+// ------------------------------------------
+// Restart Game With Current Speed
+// ------------------------------------------
+
+function restartCurrentGameSpeed() {
+
+    if (!paused) {
+
+        clearInterval(gameLoop);
+
+        gameLoop = setInterval(
+
+            drawGame,
+
+            speedMap[speedLevel]
+
+        );
+
+    }
+
+}
+
 
 // ==========================================
 // PART 5
-// SETTINGS
+// Settings
 // ==========================================
 
 // ------------------------------------------
@@ -773,7 +810,7 @@ settingsBtn.addEventListener("click", () => {
 });
 
 // ------------------------------------------
-// Close Settings
+// Close Settings Button
 // ------------------------------------------
 
 closeSettings.addEventListener("click", () => {
@@ -782,7 +819,9 @@ closeSettings.addEventListener("click", () => {
 
 });
 
-// Click outside the box to close
+// ------------------------------------------
+// Close When Clicking Outside
+// ------------------------------------------
 
 settingsPanel.addEventListener("click", (e) => {
 
@@ -795,35 +834,27 @@ settingsPanel.addEventListener("click", (e) => {
 });
 
 // ------------------------------------------
-// Speed Block UI
+// Close Using ESC Key
 // ------------------------------------------
 
-function updateSpeedBlocks() {
+document.addEventListener("keydown", (e) => {
 
-    speedBlocks.forEach((block, index) => {
+    if (e.key === "Escape") {
 
-        if (index < speedLevel) {
+        settingsPanel.classList.remove("active");
 
-            block.classList.add("active");
+    }
 
-        }
+});
 
-        else {
-
-            block.classList.remove("active");
-
-        }
-
-    });
-
-    speedText.textContent = speedNames[speedLevel];
-
-}
+// ------------------------------------------
+// Update Speed Blocks
+// ------------------------------------------
 
 updateSpeedBlocks();
 
 // ------------------------------------------
-// Speed Block Click
+// Speed Selection
 // ------------------------------------------
 
 speedBlocks.forEach((block) => {
@@ -839,21 +870,8 @@ speedBlocks.forEach((block) => {
 
         updateSpeedBlocks();
 
-        // Change speed immediately
-
-        if (!paused) {
-
-            clearInterval(gameLoop);
-
-            gameLoop = setInterval(
-
-                drawGame,
-
-                speedMap[speedLevel]
-
-            );
-
-        }
+        // Change game speed immediately
+        restartCurrentGameSpeed();
 
     });
 
@@ -868,26 +886,9 @@ soundToggle.addEventListener("change", () => {
     soundEnabled = soundToggle.checked;
 
     localStorage.setItem(
-
         "snakeSound",
-
         soundEnabled
-
     );
-
-});
-
-// ------------------------------------------
-// ESC Key Closes Settings
-// ------------------------------------------
-
-document.addEventListener("keydown", (e) => {
-
-    if (e.key === "Escape") {
-
-        settingsPanel.classList.remove("active");
-
-    }
 
 });
 
@@ -929,7 +930,7 @@ function initializeGame() {
 
     ) || 5;
 
-    // Load Sound
+    // Load Saved Sound
 
     soundEnabled =
 
@@ -947,13 +948,35 @@ function initializeGame() {
 
     highScoreElement.textContent = highScore;
 
-    // Update Speed UI
+    // Update Settings UI
 
     updateSpeedBlocks();
 
-    speedText.textContent = speedNames[speedLevel];
+    // Reset Game Variables
 
-    // Generate Food
+    snake = [
+
+        {
+
+            x: 10 * box,
+
+            y: 10 * box
+
+        }
+
+    ];
+
+    direction = "RIGHT";
+
+    score = 0;
+
+    redFoodCount = 0;
+
+    paused = false;
+
+    scoreElement.textContent = score;
+
+    // Food
 
     food = generateFood();
 
@@ -961,18 +984,24 @@ function initializeGame() {
 
     bonusFoodVisible = false;
 
-    score = 0;
+    clearTimeout(bonusTimer);
 
-    scoreElement.textContent = score;
+    // Draw Initial Scene
 
+    drawScene();
+
+    // Start Game
 
     startGame();
 
 }
 
-window.onload = function(){
+// ------------------------------------------
+// Window Loaded
+// ------------------------------------------
+
+window.onload = () => {
 
     initializeGame();
 
 };
-
